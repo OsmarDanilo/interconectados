@@ -331,8 +331,10 @@ app.post('/api/products/:id/view', async (req, res) => {
     }
 });
 // Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+const port = process.env.PORT || 3001;
+
+app.listen(port, '0.0.0.0', () => {
+    console.log(`🚀 Servidor rodando em http://localhost:${port}`);
     console.log(`📁 Uploads: ${path.join(__dirname, 'uploads')}`);
     console.log(`💾 Banco de dados: ${DB_PATH}`);
 });
