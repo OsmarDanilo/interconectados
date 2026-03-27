@@ -1,0 +1,23 @@
+export const angolaLocations = {
+    'Bengo': ['Ambriz', 'Bula Atumba', 'Dande', 'Dembos', 'Nambuangongo', 'Pango Aluquem'],
+    'Benguela': ['Baía Farta', 'Balombo', 'Benguela', 'Bocoio', 'Caimbambo', 'Catumbela', 'Chongoroi', 'Cubal', 'Ganda', 'Lobito'],
+    'Bié': ['Andulo', 'Camacupa', 'Catabola', 'Chinguar', 'Chitembo', 'Cuemba', 'Cunhinga', 'Kuito', 'Nharea'],
+    'Cabinda': ['Belize', 'Buco-Zau', 'Cabinda', 'Cacongo'],
+    'Cuando': ['Calai', 'Cuangar', 'Cuchi', 'Cuito Cuanavale', 'Dirico', 'Mavinga', 'Nancova', 'Rivungo'],
+    'Cuanza Norte': ['Ambaca', 'Banga', 'Bolongongo', 'Cambambe', 'Cazengo', 'Golungo Alto', 'Gonguembo', 'Lucala', 'Quiculungo', 'Samba Cajú'],
+    'Cuanza Sul': ['Amboim', 'Cassongue', 'Cela', 'Conda', 'Ebo', 'Libolo', 'Mussende', 'Porto Amboim', 'Quibala', 'Quilenda', 'Seles', 'Sumbe'],
+    'Cubango': ['Menongue', 'Cutato', 'Savate', 'Longa', 'Cujamba', 'Caiundo', 'Cuchi'],
+    'Cunene': ['Cahama', 'Cuanhama', 'Curoca', 'Cuvelai', 'Namacunde', 'Ombadja'],
+    'Huambo': ['Bailundo', 'Catchiungo', 'Caála', 'Ecunha', 'Huambo', 'Londuimbali', 'Longonjo', 'Mungo', 'Tchicala Tcholoanga', 'Tchindjenje', 'Ucuma'],
+    'Huíla': ['Caconda', 'Cacula', 'Caluquembe', 'Chibia', 'Chicomba', 'Chipindo', 'Cuvango', 'Gambos', 'Humpata', 'Jamba', 'Lubango', 'Matala', 'Quilengues', 'Quipungo'],
+    'Icolo e Bengo': ['Bom Jesus', 'Cabiri', 'Cabo Ledo', 'Cassoneca', 'Catete', 'Muxima', 'Quicombo', 'Quiminha'],
+    'Luanda': ['Belas', 'Cacuaco', 'Cazenga', 'Luanda', 'Quissama', 'Viana'],
+    'Lunda Norte': ['Cambulo', 'Capenda Camulemba', 'Caungula', 'Chitato', 'Cuango', 'Cuilo', 'Lubalo', 'Lucapa', 'Xá-Muteba'],
+    'Lunda Sul': ['Cacolo', 'Dala', 'Muconda', 'Saurimo'],
+    'Malanje': ['Cacuso', 'Calandula', 'Cambundi-Catembo', 'Cangandala', 'Caombo', 'Cuaba Nzogo', 'Cunda-Dia-Baze', 'Luquembo', 'Malanje', 'Marimba', 'Massango', 'Mucari', 'Quela', 'Quirima'],
+    'Moxico': ['Alto Zambeze', 'Bundas', 'Camanongue', 'Léua', 'Luacano', 'Luau', 'Luchazes'],
+    'Moxico Leste': ['Alto Cubango', 'Cazombo', 'Lumbala Nguimbo', 'Mavinga', 'Ninda'],
+    'Namibe': ['Bibala', 'Camucuio', 'Namibe', 'Tombua', 'Virei'],
+    'Uíge': ['Alto Cauale', 'Ambuila', 'Bembe', 'Buengas', 'Bungo', 'Damba', 'Maquela do Zombo', 'Mucaba', 'Negage', 'Puri', 'Quimbele', 'Quitexe', 'Sanza Pombo', 'Songo', 'Uíge'],
+    'Zaire': ['Cuimba', 'Mbanza Kongo', 'Nóqui', 'Nzeto', 'Soyo', 'Tomboco']
+};

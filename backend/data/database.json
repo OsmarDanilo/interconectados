@@ -1,0 +1,193 @@
+{
+  "users": [
+    {
+      "id": "953b82e8-e84a-402a-a182-3ab61e676883",
+      "name": "Jo�o Teste",
+      "phone": "923456789",
+      "type": "vendedor",
+      "createdAt": "2026-03-26T09:46:57.157Z",
+      "totalSales": 0,
+      "totalProducts": 0
+    },
+    {
+      "id": "78c8787b-50af-4175-8c18-509ea653bbf8",
+      "name": "Osmar danilo",
+      "phone": "930398350",
+      "type": "vendedor",
+      "createdAt": "2026-03-26T10:13:05.541Z",
+      "totalSales": 0,
+      "totalProducts": 1
+    },
+    {
+      "id": "92a67450-c69b-4950-8513-285057187d73",
+      "name": "do bazy",
+      "phone": "93055550009",
+      "type": "comprador",
+      "createdAt": "2026-03-26T10:15:10.947Z",
+      "totalSales": 0,
+      "totalProducts": 0
+    },
+    {
+      "id": "d9ee992b-9639-4ff3-9ff2-a374243778a6",
+      "name": "joao prefero",
+      "phone": "00001",
+      "type": "comprador",
+      "createdAt": "2026-03-26T10:46:48.858Z",
+      "totalSales": 0,
+      "totalProducts": 0
+    },
+    {
+      "id": "c8e9a440-fe85-4ddd-b2e7-3f82702e8b0b",
+      "name": "osmardanilo",
+      "phone": "930398354",
+      "password": "$2a$10$S5au0xJDrrQ3lNITNqQGVuNVJ4LBezCa9OMiFbZzg3z.CgORrsCdy",
+      "type": "comprador",
+      "createdAt": "2026-03-26T11:26:32.329Z",
+      "totalSales": 0,
+      "totalProducts": 0
+    },
+    {
+      "id": "d5b24de5-f7bc-4b53-bdaf-988dab216b64",
+      "name": "man boy",
+      "phone": "999019234",
+      "password": "$2a$10$BAx0DYJrmM05jwnaJdlTdOAmNJHbXZrF7V0UBV3/vXyICned38JRC",
+      "type": "vendedor",
+      "createdAt": "2026-03-27T07:27:54.758Z",
+      "totalSales": 0,
+      "totalProducts": 4
+    },
+    {
+      "id": "1c706688-042a-4969-9085-c8488fcb7c96",
+      "name": "Adriana",
+      "phone": "935388634",
+      "password": "$2a$10$kxAGhYDORsISsifD4DCKSuk6bwXQJfM96vbWkoHocUr0lOZcw5Q7m",
+      "type": "comprador",
+      "createdAt": "2026-03-27T14:32:30.790Z",
+      "totalSales": 0,
+      "totalProducts": 0
+    }
+  ],
+  "products": [
+    {
+      "id": "35ff022a-92c1-49d5-a5f7-c6137a76da0c",
+      "title": "iphone x",
+      "description": "64GB, face iD off, tela trocada o resto esta funcional",
+      "price": 64100,
+      "category": "telemovel",
+      "condition": "semi-novo",
+      "location": "Luanda",
+      "sellerId": "78c8787b-50af-4175-8c18-509ea653bbf8",
+      "sellerName": "Osmar danilo",
+      "sellerPhone": "930398350",
+      "contactMethod": "whatsapp",
+      "contactNumber": "930555500",
+      "contactHours": "",
+      "photos": [
+        "/uploads/4ddc3207-58db-4b3b-ac2e-edf2e7a5837d.jpg",
+        "/uploads/0937a20d-0fc4-4a9a-a04f-ca01a440ff88.jpg",
+        "/uploads/184e72de-e43b-4558-a33f-7095e3b5bbb1.jpg"
+      ],
+      "createdAt": "2026-03-26T10:33:18.773Z",
+      "views": 84,
+      "status": "active"
+    },
+    {
+      "id": "8f769a29-ea32-4c51-ab33-8ac7c10f076a",
+      "title": "galaxy A16 5G",
+      "description": "totalmente novo na caixa ",
+      "price": 186000,
+      "category": "telemovel",
+      "condition": "novo",
+      "location": "Luanda",
+      "sellerId": "d5b24de5-f7bc-4b53-bdaf-988dab216b64",
+      "sellerName": "man boy",
+      "contactMethod": "both",
+      "contactNumber": "930555500",
+      "contactHours": "qualquer horario",
+      "photos": [
+        "/uploads/f16e2973-a48c-442d-b312-b0e6cd4397ee.jfif"
+      ],
+      "createdAt": "2026-03-27T07:30:10.977Z",
+      "views": 40,
+      "status": "active"
+    },
+    {
+      "id": "4d217406-8953-4727-84e1-00653167e893",
+      "title": "teste de produto",
+      "description": "algo qualquer",
+      "price": 36000,
+      "category": "console",
+      "condition": "semi-novo",
+      "location": "Luanda",
+      "sellerId": "d5b24de5-f7bc-4b53-bdaf-988dab216b64",
+      "sellerName": "man boy",
+      "contactMethod": "both",
+      "contactNumber": "9999999",
+      "contactHours": "",
+      "photos": [
+        "/uploads/1227905b-08cd-4f1b-b167-586f68bc6020.jpg"
+      ],
+      "createdAt": "2026-03-27T07:37:22.752Z",
+      "views": 11,
+      "status": "active"
+    },
+    {
+      "id": "b9b3afc0-4123-4dd1-a113-112e5e4b9ce3",
+      "title": "ff",
+      "description": "usado mas funciona",
+      "price": 3000,
+      "category": "tablet",
+      "condition": "segunda-mao",
+      "location": "Moxico, Luacano",
+      "sellerId": "d5b24de5-f7bc-4b53-bdaf-988dab216b64",
+      "sellerName": "man boy",
+      "contactMethod": "whatsapp",
+      "contactNumber": "9999999",
+      "contactHours": "",
+      "photos": [],
+      "createdAt": "2026-03-27T10:08:22.757Z",
+      "status": "active",
+      "views": 1
+    },
+    {
+      "id": "4e12b098-3623-49c0-8638-bebf4c428fd8",
+      "title": "outrotest",
+      "description": "bom produto",
+      "price": 22000,
+      "category": "console",
+      "condition": "segunda-mao",
+      "location": "Malanje",
+      "sellerId": "d5b24de5-f7bc-4b53-bdaf-988dab216b64",
+      "sellerName": "man boy",
+      "contactMethod": "whatsapp",
+      "contactNumber": "9999999",
+      "contactHours": "",
+      "photos": [],
+      "createdAt": "2026-03-27T10:58:16.892Z",
+      "status": "active",
+      "views": 1
+    }
+  ],
+  "productViews": [
+    {
+      "productId": "35ff022a-92c1-49d5-a5f7-c6137a76da0c",
+      "sessionId": "session_1774592308421_8zw7sfd3b",
+      "viewedAt": "2026-03-27T06:23:26.169Z"
+    },
+    {
+      "productId": "8f769a29-ea32-4c51-ab33-8ac7c10f076a",
+      "sessionId": "session_1774592308421_8zw7sfd3b",
+      "viewedAt": "2026-03-27T07:37:32.063Z"
+    },
+    {
+      "productId": "bd5cb756-24d0-4bed-a779-2e700919ea10",
+      "sessionId": "session_1774592308421_8zw7sfd3b",
+      "viewedAt": "2026-03-27T07:37:55.590Z"
+    },
+    {
+      "productId": "4d217406-8953-4727-84e1-00653167e893",
+      "sessionId": "session_1774592308421_8zw7sfd3b",
+      "viewedAt": "2026-03-27T07:38:17.559Z"
+    }
+  ]
+}

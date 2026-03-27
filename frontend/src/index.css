@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+  
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Transições suaves */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
