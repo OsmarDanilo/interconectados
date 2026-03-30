@@ -65,6 +65,16 @@
       "createdAt": "2026-03-27T14:32:30.790Z",
       "totalSales": 0,
       "totalProducts": 0
+    },
+    {
+      "id": "bab1e8f0-e500-4f8f-ab99-58b6428d2e41",
+      "name": "Selinho",
+      "phone": "974412735",
+      "password": "$2a$10$ZATR0IgGpLRJXuPrbmtNjej0D/sD7AeyKnmK/mVHRUvlQRc3JzlYi",
+      "type": "vendedor",
+      "createdAt": "2026-03-29T14:41:13.073Z",
+      "totalSales": 0,
+      "totalProducts": 3
     }
   ],
   "products": [
@@ -164,6 +174,67 @@
       "contactHours": "",
       "photos": [],
       "createdAt": "2026-03-27T10:58:16.892Z",
+      "status": "active",
+      "views": 1
+    },
+    {
+      "id": "8ca1a802-8cce-49dd-abdf-a10cbc895107",
+      "title": "patins inlene",
+      "description": "tamanho 39 rodas 360 ",
+      "price": 22000,
+      "category": "outros",
+      "condition": "semi-novo",
+      "location": "Malanje, Malanje",
+      "sellerId": "bab1e8f0-e500-4f8f-ab99-58b6428d2e41",
+      "sellerName": "Selinho",
+      "contactMethod": "whatsapp",
+      "contactNumber": "974412735",
+      "contactHours": "qualquer horario",
+      "photos": [],
+      "createdAt": "2026-03-29T15:18:26.606Z",
+      "status": "active"
+    },
+    {
+      "id": "1c0a5001-b671-4158-be78-7e3ff150c72c",
+      "title": "HD",
+      "description": "1terabite HD blue em perfeitas condicoes",
+      "price": 10000,
+      "category": "outros",
+      "condition": "novo",
+      "location": "Malanje, Malanje",
+      "sellerId": "bab1e8f0-e500-4f8f-ab99-58b6428d2e41",
+      "sellerName": "Selinho",
+      "contactMethod": "whatsapp",
+      "contactNumber": "974412735",
+      "contactHours": "",
+      "photos": [
+        "/uploads/3e89208f-9441-4c57-b4d6-0218725d1d6f.jpg"
+      ],
+      "createdAt": "2026-03-29T15:32:33.401Z",
+      "status": "active",
+      "views": 1
+    },
+    {
+      "id": "f02110de-d922-4f76-8603-28c922654710",
+      "title": "computador  HP",
+      "description": "computador HD  \r\n500g de RAM\r\nprocessador intel \r\ntela 150p\r\nusa HD e SSD \r\ntela digital \r\nplaca grafica 380",
+      "price": 150000,
+      "category": "laptop",
+      "condition": "semi-novo",
+      "location": "Malanje, Malanje",
+      "sellerId": "bab1e8f0-e500-4f8f-ab99-58b6428d2e41",
+      "sellerName": "Selinho",
+      "contactMethod": "whatsapp",
+      "contactNumber": "974412735",
+      "contactHours": "",
+      "photos": [
+        "/uploads/e5fd0135-9bbd-434a-8665-2139fdfb683f.jpg",
+        "/uploads/47b44e0c-2743-4ad3-9c58-907ecfa7200e.jpg",
+        "/uploads/db3b34b2-ea0d-4fdb-ab3c-d1d90add3560.jpg",
+        "/uploads/6f064afe-67cb-406e-ba34-d7056509a013.jpg",
+        "/uploads/a6981c53-17db-48d3-afe9-61d40c36193b.jpg"
+      ],
+      "createdAt": "2026-03-29T15:39:25.588Z",
       "status": "active",
       "views": 1
     }
