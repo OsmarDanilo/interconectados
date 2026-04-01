@@ -24,3 +24,34 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
 }
+/* Melhorias de toque em mobile */
+@media (max-width: 640px) {
+    button, 
+    .product-card,
+    .thumbnail {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Aumentar área de clique em mobile */
+    .nav-buttons button,
+    .btn {
+        min-height: 44px;
+    }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 480px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    .product-title {
+        font-size: 0.9rem;
+    }
+    
+    .product-price {
+        font-size: 1rem;
+    }
+}
