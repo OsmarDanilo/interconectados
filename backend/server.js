@@ -8,6 +8,15 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
+const cloudinary = require('cloudinary').v2;
+
+// Configurar Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -24,20 +33,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Configurar upload
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadDir = path.join(__dirname, 'uploads');
-        if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${uuidv4()}${path.extname(file.originalname)}`);
-    }
-});
-
+// Configurar multer para memória (não salvar no disco)
+const storage = multer.memoryStorage();
 const upload = multer({ 
     storage,
     limits: { fileSize: 5 * 1024 * 1024 },
@@ -168,7 +166,7 @@ app.put('/api/auth/profile', authMiddleware, async (req, res) => {
 
 // ============ ROTAS DE PRODUTOS ============
 
-// CRIAR PRODUTO
+// CRIAR PRODUTO (COM CLOUDINARY)
 app.post('/api/products', authMiddleware, upload.array('photos', 5), async (req, res) => {
     try {
         const { title, description, price, category, condition, location, contactMethod, contactNumber, contactHours } = req.body;
@@ -178,7 +176,24 @@ app.post('/api/products', authMiddleware, upload.array('photos', 5), async (req,
         const user = data.users.find(u => u.id === req.userId);
         if (!user || user.type !== 'vendedor') return res.status(403).json({ error: 'Apenas vendedores' });
         
-        const photos = req.files ? req.files.map(f => `/uploads/${f.filename}`) : [];
+        // Upload para o Cloudinary
+        const photos = [];
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                // Converter buffer para base64
+                const b64 = Buffer.from(file.buffer).toString('base64');
+                const dataURI = `data:${file.mimetype};base64,${b64}`;
+                
+                // Enviar para o Cloudinary
+                const result = await cloudinary.uploader.upload(dataURI, {
+                    folder: 'interconectados',
+                    transformation: [{ width: 800, height: 800, crop: 'limit' }]
+                });
+                
+                photos.push(result.secure_url);
+            }
+        }
+        
         const newProduct = {
             id: uuidv4(),
             title,
@@ -194,11 +209,14 @@ app.post('/api/products', authMiddleware, upload.array('photos', 5), async (req,
             contactHours: contactHours || '',
             photos,
             createdAt: new Date().toISOString(),
+            views: 0,
             status: 'active'
         };
+        
         data.products.push(newProduct);
         user.totalProducts = (user.totalProducts || 0) + 1;
         writeData(data);
+        
         res.json({ success: true, product: newProduct });
     } catch (error) {
         console.error('Erro ao criar produto:', error);
@@ -266,19 +284,7 @@ app.delete('/api/products/:id', authMiddleware, async (req, res) => {
             return res.status(403).json({ error: 'Não autorizado' });
         }
         
-        if (product.photos && product.photos.length > 0) {
-            product.photos.forEach(photoPath => {
-                const fullPath = path.join(__dirname, photoPath);
-                if (fs.existsSync(fullPath)) {
-                    try {
-                        fs.unlinkSync(fullPath);
-                    } catch (err) {
-                        console.error('Erro ao deletar foto:', err);
-                    }
-                }
-            });
-        }
-        
+        // Não precisa remover fotos do Cloudinary por enquanto
         data.products.splice(productIndex, 1);
         
         const user = data.users.find(u => u.id === req.userId);
@@ -314,6 +320,7 @@ app.get('/api/stats', async (req, res) => {
 app.get('/api/test', (req, res) => {
     res.json({ message: 'API funcionando!' });
 });
+
 // INCREMENTAR VISUALIZAÇÕES (rota específica)
 app.post('/api/products/:id/view', async (req, res) => {
     try {
@@ -324,7 +331,6 @@ app.post('/api/products/:id/view', async (req, res) => {
             return res.status(404).json({ error: 'Produto não encontrado' });
         }
         
-        // Incrementar visualizações
         product.views = (product.views || 0) + 1;
         writeData(data);
         
@@ -336,11 +342,11 @@ app.post('/api/products/:id/view', async (req, res) => {
         res.status(500).json({ error: 'Erro ao registrar visualização' });
     }
 });
+
 // Iniciar servidor
 const port = process.env.PORT || 3001;
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`🚀 Servidor rodando em http://localhost:${port}`);
-    console.log(`📁 Uploads: ${path.join(__dirname, 'uploads')}`);
     console.log(`💾 Banco de dados: ${DB_PATH}`);
 });
