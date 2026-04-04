@@ -26,10 +26,11 @@ const ProductModal = ({ product, isOpen, onClose }) => {
     const registerView = async () => {
         setViewRegistered(true);
         
-        if (user && product.sellerId === user.id) {
-            console.log('Vendedor vendo próprio produto - não conta');
-            return;
-        }
+        // COMENTADO: Vendedor agora também conta visualização
+        // if (user && product.sellerId === user.id) {
+        //     console.log('Vendedor vendo próprio produto - não conta');
+        //     return;
+        // }
         
         const storageKey = `viewed_${product.id}`;
         const alreadyViewed = localStorage.getItem(storageKey);
@@ -122,7 +123,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 </div>
 
                 <div className="p-4 sm:p-5">
-                    {/* Imagem Principal - CORRIGIDA (sem localhost) */}
+                    {/* Imagem Principal */}
                     <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 flex justify-center items-center mb-4 h-56 sm:h-80 md:h-96 border border-gray-200 dark:border-gray-600">
                         {currentProduct.photos && currentProduct.photos[0] ? (
                             <img 
@@ -135,7 +136,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         )}
                     </div>
 
-                    {/* Miniaturas - CORRIGIDAS (sem localhost) */}
+                    {/* Miniaturas */}
                     {currentProduct.photos && currentProduct.photos.length > 1 && (
                         <div className="flex gap-2 mb-5 overflow-x-auto pb-2">
                             {currentProduct.photos.map((photo, idx) => (
