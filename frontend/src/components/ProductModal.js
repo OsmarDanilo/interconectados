@@ -122,11 +122,11 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 </div>
 
                 <div className="p-4 sm:p-5">
-                    {/* Imagem Principal */}
-                    <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 flex justify-center items-center mb-4 h-64 sm:h-80 md:h-96 border border-gray-200 dark:border-gray-600">
+                    {/* Imagem Principal - CORRIGIDA (sem localhost) */}
+                    <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 flex justify-center items-center mb-4 h-56 sm:h-80 md:h-96 border border-gray-200 dark:border-gray-600">
                         {currentProduct.photos && currentProduct.photos[0] ? (
                             <img 
-                                src={`http://localhost:3001${currentProduct.photos[currentPhotoIndex]}`} 
+                                src={currentProduct.photos[currentPhotoIndex]} 
                                 alt={currentProduct.title} 
                                 className="max-w-full max-h-full object-contain rounded-lg" 
                             />
@@ -135,19 +135,19 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         )}
                     </div>
 
-                    {/* Miniaturas */}
+                    {/* Miniaturas - CORRIGIDAS (sem localhost) */}
                     {currentProduct.photos && currentProduct.photos.length > 1 && (
                         <div className="flex gap-2 mb-5 overflow-x-auto pb-2">
                             {currentProduct.photos.map((photo, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentPhotoIndex(idx)}
-                                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0 border-2 ${
+                                    className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0 border-2 ${
                                         currentPhotoIndex === idx ? 'border-blue-500' : 'border-gray-300 dark:border-gray-600'
                                     }`}
                                 >
                                     <img 
-                                        src={`http://localhost:3001${photo}`} 
+                                        src={photo} 
                                         alt={`Foto ${idx + 1}`} 
                                         className="w-full h-full object-cover" 
                                     />
@@ -156,7 +156,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         </div>
                     )}
 
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">{currentProduct.title}</h3>
+                    <h3 className="text-base sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">{currentProduct.title}</h3>
                     
                     <div className="flex items-center gap-2 mb-3">
                         <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getConditionClass(currentProduct.condition)}`}>
@@ -166,20 +166,20 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                     </div>
 
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        <p className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
                             {currentProduct.price.toLocaleString()} Kz
                         </p>
-                        <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-sm">
-                            <FiEye size={16} />
+                        <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-xs sm:text-sm">
+                            <FiEye size={14} />
                             <span>{views} visualizações</span>
                         </div>
                     </div>
 
                     <div className="border-t border-gray-100 dark:border-gray-700 pt-4 mb-4">
-                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{currentProduct.description}</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm leading-relaxed">{currentProduct.description}</p>
                     </div>
 
-                    <div className="space-y-2 mb-5 text-sm">
+                    <div className="space-y-2 mb-5 text-xs sm:text-sm">
                         <div className="flex items-center text-gray-500 dark:text-gray-400">
                             <FiMapPin className="mr-2 text-gray-400 dark:text-gray-500" size={14} />
                             <span>{currentProduct.location}</span>
@@ -194,7 +194,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         <>
                             {showContact ? (
                                 <div className="bg-green-50 dark:bg-green-900/30 rounded-xl p-3 sm:p-4 border border-green-200 dark:border-green-800">
-                                    <p className="font-medium text-green-700 dark:text-green-400 mb-1">{getContactMethodIcon(currentProduct.contactMethod)}</p>
+                                    <p className="font-medium text-green-700 dark:text-green-400 mb-1 text-sm">{getContactMethodIcon(currentProduct.contactMethod)}</p>
                                     <p className="text-base sm:text-lg font-bold text-green-700 dark:text-green-400">{currentProduct.contactNumber}</p>
                                     {currentProduct.contactHours && (
                                         <p className="text-xs text-green-600 dark:text-green-500 mt-1">Horário: {currentProduct.contactHours}</p>
@@ -209,7 +209,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                         }
                                         setShowContact(true);
                                     }}
-                                    className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition"
+                                    className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition text-sm sm:text-base"
                                 >
                                     Ver número do vendedor
                                 </button>
@@ -219,7 +219,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
 
                     {isOwner && (
                         <div className="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-3 border border-blue-200 dark:border-blue-800">
-                            <p className="text-blue-600 dark:text-blue-400 font-medium">📌 Este é seu anúncio</p>
+                            <p className="text-blue-600 dark:text-blue-400 font-medium text-sm">📌 Este é seu anúncio</p>
                             <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
                                 {getContactMethodIcon(currentProduct.contactMethod)}: {currentProduct.contactNumber}
                             </p>
