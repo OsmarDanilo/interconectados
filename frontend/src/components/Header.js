@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggle from './ThemeToggle';
-import { FiUser, FiLogOut, FiShoppingBag, FiPlusCircle, FiSearch, FiMenu, FiX } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiShoppingBag, FiPlusCircle, FiSearch, FiMenu, FiX, FiHome } from 'react-icons/fi';
 
 const Header = () => {
     const { user, logout } = useAuth();
@@ -80,7 +80,7 @@ const Header = () => {
                         </div>
                     </Link>
 
-                    {/* Desktop Search - esconde no mobile */}
+                    {/* Desktop Search */}
                     <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md">
                         <div className="relative w-full">
                             <input
@@ -96,7 +96,13 @@ const Header = () => {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center space-x-4">
+                        {/* Botão Início - Desktop */}
+                        <Link to="/" className="hover:text-gray-200 transition">
+                            <FiHome size={20} />
+                        </Link>
+                        
                         <ThemeToggle />
+                        
                         {user ? (
                             <>
                                 {user.type === 'vendedor' && (
@@ -123,6 +129,14 @@ const Header = () => {
                                             onMouseEnter={cancelClose}
                                             onMouseLeave={closeMenu}
                                         >
+                                            <Link
+                                                to="/"
+                                                className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition"
+                                                onClick={() => setMenuOpen(false)}
+                                            >
+                                                <FiHome size={16} />
+                                                <span>Início</span>
+                                            </Link>
                                             <Link
                                                 to="/profile"
                                                 className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition"
@@ -184,10 +198,21 @@ const Header = () => {
 
                         {/* Mobile Navigation */}
                         <div className="flex flex-col space-y-2">
-                            <div className="flex items-center justify-between">
+                            {/* Botão Início - Mobile */}
+                            <Link
+                                to="/"
+                                className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                <FiHome size={18} />
+                                <span>Início</span>
+                            </Link>
+                            
+                            <div className="flex items-center justify-between py-2">
                                 <span className="text-sm">Tema</span>
                                 <ThemeToggle />
                             </div>
+                            
                             {user ? (
                                 <>
                                     <Link
