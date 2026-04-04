@@ -82,7 +82,7 @@ const Home = () => {
 
     return (
         <div>
-            {/* Hero Section - Responsivo */}
+            {/* Hero Section */}
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center dark:from-gray-800 dark:to-gray-900">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">InterConectados</h1>
                 <p className="text-sm sm:text-lg md:text-xl mb-4 sm:mb-6 opacity-90 px-2">Conectando pessoas através da tecnologia</p>
@@ -98,7 +98,7 @@ const Home = () => {
                 )}
             </div>
 
-            {/* Barra de Pesquisa - Responsiva */}
+            {/* Barra de Pesquisa */}
             <div className="mb-6 sm:mb-8 px-2 sm:px-0">
                 <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto">
                     <input
@@ -118,7 +118,7 @@ const Home = () => {
                 </form>
             </div>
 
-            {/* Categorias - Nome completo, sem abreviação */}
+            {/* Categorias */}
             <div className="mb-6 sm:mb-8">
                 <h3 className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 sm:mb-3 uppercase tracking-wide px-2 sm:px-0">
                     Categorias
@@ -141,7 +141,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Produtos - 2 por linha no mobile, 4 no desktop */}
+            {/* Produtos - 1 por linha no mobile */}
             <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200">Últimos Anúncios</h2>
                 {searchParams.get('search') && (
@@ -171,7 +171,7 @@ const Home = () => {
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-0">
                     {products.map(product => (
                         <ProductCard 
                             key={product.id} 
@@ -182,7 +182,7 @@ const Home = () => {
                 </div>
             )}
 
-            {/* Modal de detalhes do produto */}
+            {/* Modal */}
             <ProductModal 
                 product={selectedProduct}
                 isOpen={modalOpen}

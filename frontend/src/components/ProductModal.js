@@ -23,14 +23,32 @@ const ProductModal = ({ product, isOpen, onClose }) => {
         }
     }, [isOpen, product?.id, viewRegistered]);
 
+    // Interceptar o botão voltar do navegador/celular
+    useEffect(() => {
+        if (isOpen) {
+            window.history.pushState({ modalOpen: true }, '', window.location.href);
+            
+            const handlePopState = (event) => {
+                if (isOpen) {
+                    event.preventDefault();
+                    onClose();
+                    window.history.pushState({ modalOpen: false }, '', window.location.href);
+                }
+            };
+            
+            window.addEventListener('popstate', handlePopState);
+            
+            return () => {
+                window.removeEventListener('popstate', handlePopState);
+                if (window.history.state?.modalOpen) {
+                    window.history.back();
+                }
+            };
+        }
+    }, [isOpen, onClose]);
+
     const registerView = async () => {
         setViewRegistered(true);
-        
-        // COMENTADO: Vendedor agora também conta visualização
-        // if (user && product.sellerId === user.id) {
-        //     console.log('Vendedor vendo próprio produto - não conta');
-        //     return;
-        // }
         
         const storageKey = `viewed_${product.id}`;
         const alreadyViewed = localStorage.getItem(storageKey);
