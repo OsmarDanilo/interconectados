@@ -3,7 +3,6 @@ import { FiMapPin, FiEye } from 'react-icons/fi';
 
 const ProductCard = ({ product, onClick }) => {
     const [views, setViews] = useState(product?.views || 0);
-    // CORREÇÃO: URL do Cloudinary (não precisa mais de localhost)
     const mainPhoto = product.photos && product.photos[0] ? product.photos[0] : null;
 
     useEffect(() => {
@@ -70,33 +69,35 @@ const ProductCard = ({ product, onClick }) => {
                         className="w-full h-full object-cover" 
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center text-5xl">
+                    <div className="w-full h-full flex items-center justify-center text-4xl sm:text-5xl">
                         {getCategoryIcon(product.category)}
                     </div>
                 )}
-                <span className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold ${getConditionClass(product.condition)}`}>
+                <span className={`absolute top-2 right-2 px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold ${getConditionClass(product.condition)}`}>
                     {getConditionText(product.condition)}
                 </span>
             </div>
-            <div className="p-3 sm:p-4">
-                <h3 className="font-semibold text-sm sm:text-base text-gray-800 dark:text-gray-200 mb-1 line-clamp-2">{product.title}</h3>
-                <div className="flex items-center justify-between mb-2">
-                    <p className="text-base sm:text-xl font-bold text-blue-600 dark:text-blue-400">
+            <div className="p-2 sm:p-4">
+                <h3 className="font-semibold text-xs sm:text-base text-gray-800 dark:text-gray-200 mb-1 line-clamp-2">
+                    {product.title}
+                </h3>
+                <div className="flex items-center justify-between mb-1 sm:mb-2">
+                    <p className="text-sm sm:text-xl font-bold text-blue-600 dark:text-blue-400">
                         {product.price.toLocaleString()} Kz
                     </p>
-                    <div className="flex items-center gap-1 text-[10px] sm:text-xs text-gray-400 dark:text-gray-500">
-                        <FiEye size={10} className="sm:w-3 sm:h-3" />
+                    <div className="flex items-center gap-1 text-[8px] sm:text-xs text-gray-400 dark:text-gray-500">
+                        <FiEye size={8} className="sm:w-3 sm:h-3" />
                         <span>{views}</span>
                     </div>
                 </div>
-                <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between text-[10px] sm:text-sm text-gray-500 dark:text-gray-400">
                     <div className="flex items-center">
-                        <FiMapPin className="mr-1" size={12} />
-                        <span className="truncate">{product.location}</span>
+                        <FiMapPin className="mr-0.5 sm:mr-1" size={10} />
+                        <span className="truncate text-[9px] sm:text-sm">{product.location}</span>
                     </div>
-                    <span className="truncate ml-2 text-[10px] sm:text-xs">{product.sellerName}</span>
+                    <span className="truncate ml-1 text-[8px] sm:text-xs">{product.sellerName}</span>
                 </div>
-                <div className="text-[10px] sm:text-xs text-gray-400 dark:text-gray-500 mt-2">
+                <div className="text-[8px] sm:text-xs text-gray-400 dark:text-gray-500 mt-1">
                     📞 {getContactMethodIcon(product.contactMethod)}
                 </div>
             </div>

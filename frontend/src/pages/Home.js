@@ -118,29 +118,30 @@ const Home = () => {
                 </form>
             </div>
 
-            {/* Categorias - Responsivo */}
+            {/* Categorias - Nome completo, sem abreviação */}
             <div className="mb-6 sm:mb-8">
-                <h3 className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 sm:mb-3 uppercase tracking-wide px-2 sm:px-0">Categorias</h3>
-                <div className="flex flex-wrap gap-2 px-2 sm:px-0">
+                <h3 className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 sm:mb-3 uppercase tracking-wide px-2 sm:px-0">
+                    Categorias
+                </h3>
+                <div className="grid grid-cols-2 xs:grid-cols-3 sm:flex sm:flex-wrap gap-2 px-2 sm:px-0">
                     {categories.map(cat => (
                         <button
                             key={cat.id}
                             onClick={() => setCategory(cat.id)}
-                            className={`px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full flex items-center gap-1 sm:gap-2 transition-all duration-200 text-xs sm:text-sm ${
+                            className={`px-3 py-1.5 rounded-full flex items-center justify-center gap-1 transition-all duration-200 text-xs ${
                                 category === cat.id
                                     ? 'bg-blue-600 text-white dark:bg-blue-500'
                                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                             }`}
                         >
-                            <span className="text-sm sm:text-lg">{cat.icon}</span>
-                            <span className="font-medium hidden xs:inline">{cat.name}</span>
-                            <span className="font-medium xs:hidden">{cat.name.charAt(0)}</span>
+                            <span className="text-sm">{cat.icon}</span>
+                            <span className="font-medium whitespace-nowrap text-xs sm:text-sm">{cat.name}</span>
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* Produtos */}
+            {/* Produtos - 2 por linha no mobile, 4 no desktop */}
             <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200">Últimos Anúncios</h2>
                 {searchParams.get('search') && (
@@ -170,7 +171,7 @@ const Home = () => {
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-0">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 px-2 sm:px-0">
                     {products.map(product => (
                         <ProductCard 
                             key={product.id} 
