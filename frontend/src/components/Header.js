@@ -57,28 +57,35 @@ const Header = () => {
         <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md sticky top-0 z-50 transition-colors dark:from-gray-800 dark:to-gray-900">
             <div className="container mx-auto px-4 py-3">
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center shadow-md">
-                            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                <path d="M8 4v16" />
-                                <path d="M16 4v16" />
-                                <path d="M4 8h4" />
-                                <path d="M4 16h4" />
-                                <path d="M4 12h16" />
-                                <path d="M16 8h4" />
-                                <path d="M16 16h4" />
-                            </svg>
-                        </div>
-                        <div className="hidden sm:block">
-                            <span className="text-base sm:text-lg font-bold">InterConectados</span>
-                            <span className="text-xs opacity-80 hidden sm:block">Conectando pessoas</span>
-                        </div>
-                        <div className="block sm:hidden">
-                            <span className="text-sm font-bold">InterConectados</span>
-                        </div>
-                    </Link>
+                    {/* Logo e Botão Início */}
+                    <div className="flex items-center space-x-3">
+                        <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center shadow-md">
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                    <path d="M8 4v16" />
+                                    <path d="M16 4v16" />
+                                    <path d="M4 8h4" />
+                                    <path d="M4 16h4" />
+                                    <path d="M4 12h16" />
+                                    <path d="M16 8h4" />
+                                    <path d="M16 16h4" />
+                                </svg>
+                            </div>
+                            <div className="hidden sm:block">
+                                <span className="text-base sm:text-lg font-bold">InterConectados</span>
+                                <span className="text-xs opacity-80 hidden sm:block">Conectando pessoas</span>
+                            </div>
+                            <div className="block sm:hidden">
+                                <span className="text-sm font-bold">InterConectados</span>
+                            </div>
+                        </Link>
+                        
+                        {/* Botão Início ao lado do logo */}
+                        <Link to="/" className="p-2 hover:bg-white/10 rounded-lg transition" title="Início">
+                            <FiHome size={20} />
+                        </Link>
+                    </div>
 
                     {/* Desktop Search */}
                     <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md">
@@ -96,11 +103,6 @@ const Header = () => {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center space-x-4">
-                        {/* Botão Início - Desktop */}
-                        <Link to="/" className="hover:text-gray-200 transition">
-                            <FiHome size={20} />
-                        </Link>
-                        
                         <ThemeToggle />
                         
                         {user ? (
@@ -129,14 +131,6 @@ const Header = () => {
                                             onMouseEnter={cancelClose}
                                             onMouseLeave={closeMenu}
                                         >
-                                            <Link
-                                                to="/"
-                                                className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition"
-                                                onClick={() => setMenuOpen(false)}
-                                            >
-                                                <FiHome size={16} />
-                                                <span>Início</span>
-                                            </Link>
                                             <Link
                                                 to="/profile"
                                                 className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition"
@@ -184,7 +178,6 @@ const Header = () => {
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
                     <div className="md:hidden mt-4 pt-4 border-t border-white/20 space-y-3">
-                        {/* Mobile Search */}
                         <form onSubmit={handleSearch} className="relative">
                             <input
                                 type="text"
@@ -196,23 +189,11 @@ const Header = () => {
                             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70" size={18} />
                         </form>
 
-                        {/* Mobile Navigation */}
                         <div className="flex flex-col space-y-2">
-                            {/* Botão Início - Mobile */}
-                            <Link
-                                to="/"
-                                className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                <FiHome size={18} />
-                                <span>Início</span>
-                            </Link>
-                            
                             <div className="flex items-center justify-between py-2">
                                 <span className="text-sm">Tema</span>
                                 <ThemeToggle />
                             </div>
-                            
                             {user ? (
                                 <>
                                     <Link
