@@ -118,28 +118,33 @@ const Home = () => {
                 </form>
             </div>
 
-            {/* Categorias */}
-            <div className="mb-6 sm:mb-8">
-                <h3 className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 sm:mb-3 uppercase tracking-wide px-2 sm:px-0">
-                    Categorias
-                </h3>
-                <div className="grid grid-cols-2 xs:grid-cols-3 sm:flex sm:flex-wrap gap-2 px-2 sm:px-0">
-                    {categories.map(cat => (
-                        <button
-                            key={cat.id}
-                            onClick={() => setCategory(cat.id)}
-                            className={`px-3 py-1.5 rounded-full flex items-center justify-center gap-1 transition-all duration-200 text-xs ${
-                                category === cat.id
-                                    ? 'bg-blue-600 text-white dark:bg-blue-500'
-                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
-                            }`}
-                        >
-                            <span className="text-sm">{cat.icon}</span>
-                            <span className="font-medium whitespace-nowrap text-xs sm:text-sm">{cat.name}</span>
-                        </button>
-                    ))}
-                </div>
-            </div>
+           {/* Categorias - Versão limpa e moderna */}
+<div className="mb-8">
+    <div className="border-b border-gray-200 dark:border-gray-700 mb-4">
+        <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 pb-2">
+            Explorar categorias
+        </h3>
+    </div>
+    
+    <div className="flex flex-wrap gap-2">
+        {categories.map(cat => (
+            <button
+                key={cat.id}
+                onClick={() => setCategory(cat.id)}
+                className={`
+                    inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all
+                    ${category === cat.id 
+                        ? 'bg-blue-500 text-white shadow-sm' 
+                        : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+                    }
+                `}
+            >
+                <span className="text-base">{cat.icon}</span>
+                <span>{cat.name}</span>
+            </button>
+        ))}
+    </div>
+</div>
 
             {/* Produtos - 1 por linha no mobile */}
             <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
