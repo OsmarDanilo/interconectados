@@ -75,6 +75,16 @@
       "createdAt": "2026-03-29T14:41:13.073Z",
       "totalSales": 0,
       "totalProducts": 3
+    },
+    {
+      "id": "535110af-1830-42bf-9090-b092a691c61e",
+      "name": "osmard",
+      "phone": "938474743",
+      "password": "$2a$10$4sHm5YFCgUYXO/0LahKvU.B4fT7Rtz5bedgA6vF/xZpKo2BRXT9Nq",
+      "type": "vendedor",
+      "createdAt": "2026-06-24T12:59:21.527Z",
+      "totalSales": 0,
+      "totalProducts": 0
     }
   ],
   "products": [
@@ -237,7 +247,7 @@
       ],
       "createdAt": "2026-03-29T15:39:25.588Z",
       "status": "active",
-      "views": 1
+      "views": 3
     }
   ],
   "productViews": [
