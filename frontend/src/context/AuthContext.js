@@ -38,20 +38,20 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const register = async (name, phone, password, type) => {
-        try {
-            const res = await api.post('/auth/register', { name, phone, password, type });
-            if (res.data.success) {
-                localStorage.setItem('token', res.data.token);
-                setUser(res.data.user);
-                toast.success('Cadastro realizado!');
-                return { success: true, user: res.data.user };
-            }
-        } catch (error) {
-            toast.error(error.response?.data?.error || 'Erro');
-            return { success: false };
+   const register = async (name, phone, password) => {
+    try {
+        const res = await api.post('/auth/register', { name, phone, password });
+        if (res.data.success) {
+            localStorage.setItem('token', res.data.token);
+            setUser(res.data.user);
+            toast.success('Cadastro realizado!');
+            return { success: true, user: res.data.user };
         }
-    };
+    } catch (error) {
+        toast.error(error.response?.data?.error || 'Erro');
+        return { success: false };
+    }
+};
 
     const logout = () => {
         localStorage.removeItem('token');

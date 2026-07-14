@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiUser, FiPhone, FiLock, FiUserCheck } from 'react-icons/fi';
+import { FiUser, FiPhone, FiLock } from 'react-icons/fi';
 
 const Register = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
-    const [userType, setUserType] = useState('comprador');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const { register } = useAuth();
@@ -52,9 +51,9 @@ const Register = () => {
         }
         
         setLoading(true);
-        const result = await register(name, phone, password, userType);
+        const result = await register(name, phone, password);
         if (result.success) {
-            navigate(userType === 'vendedor' ? '/seller/dashboard' : '/');
+            navigate('/');
         }
         setLoading(false);
     };
@@ -72,7 +71,7 @@ const Register = () => {
                 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 dark:text-gray-300 mb-2">Nome de Usuário *</label>
+                        <label className="block text-gray-700 dark:text-gray-300 mb-2">Nome completo *</label>
                         <div className="relative">
                             <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                             <input 
@@ -117,7 +116,7 @@ const Register = () => {
                         </div>
                     </div>
                     
-                    <div className="mb-4">
+                    <div className="mb-6">
                         <label className="block text-gray-700 dark:text-gray-300 mb-2">Confirmar senha *</label>
                         <div className="relative">
                             <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -129,36 +128,6 @@ const Register = () => {
                                 className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white" 
                                 required 
                             />
-                        </div>
-                    </div>
-                    
-                    <div className="mb-6">
-                        <label className="block text-gray-700 dark:text-gray-300 mb-2">Tipo de conta</label>
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                type="button"
-                                onClick={() => setUserType('comprador')}
-                                className={`py-2 px-4 rounded-lg border transition ${
-                                    userType === 'comprador' 
-                                        ? 'bg-blue-600 text-white border-blue-600' 
-                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-600'
-                                }`}
-                            >
-                                <FiUserCheck className="inline mr-2" />
-                                Comprador
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setUserType('vendedor')}
-                                className={`py-2 px-4 rounded-lg border transition ${
-                                    userType === 'vendedor' 
-                                        ? 'bg-blue-600 text-white border-blue-600' 
-                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-600'
-                                }`}
-                            >
-                                <FiUser className="inline mr-2" />
-                                Vendedor
-                            </button>
                         </div>
                     </div>
                     

@@ -85,6 +85,25 @@
       "createdAt": "2026-06-24T12:59:21.527Z",
       "totalSales": 0,
       "totalProducts": 0
+    },
+    {
+      "id": "5db37f47-2a75-41e0-9f09-046d3dead1fa",
+      "name": "osmar",
+      "phone": "930349834",
+      "password": "$2a$10$SIo3AbJ4pqVe455mON0f4u6h1mhp79zR.8eA5iqpXrfkqNcqVNUSK",
+      "type": "vendedor",
+      "createdAt": "2026-07-01T11:14:11.722Z",
+      "totalSales": 0,
+      "totalProducts": 1
+    },
+    {
+      "id": "904ff4d8-029f-4fa2-986c-8272c1a8c9de",
+      "name": "osmar",
+      "phone": "983687463",
+      "password": "$2a$10$SFP6l0HMDVfZc5.eTokeke7bbNKOZiO6vWT.sC.jB0EhwsW0vWAp2",
+      "createdAt": "2026-07-13T13:47:46.382Z",
+      "totalSales": 0,
+      "totalProducts": 0
     }
   ],
   "products": [
@@ -108,7 +127,7 @@
         "/uploads/184e72de-e43b-4558-a33f-7095e3b5bbb1.jpg"
       ],
       "createdAt": "2026-03-26T10:33:18.773Z",
-      "views": 84,
+      "views": 85,
       "status": "active"
     },
     {
@@ -128,7 +147,7 @@
         "/uploads/f16e2973-a48c-442d-b312-b0e6cd4397ee.jfif"
       ],
       "createdAt": "2026-03-27T07:30:10.977Z",
-      "views": 40,
+      "views": 41,
       "status": "active"
     },
     {
@@ -148,7 +167,7 @@
         "/uploads/1227905b-08cd-4f1b-b167-586f68bc6020.jpg"
       ],
       "createdAt": "2026-03-27T07:37:22.752Z",
-      "views": 11,
+      "views": 12,
       "status": "active"
     },
     {
@@ -167,7 +186,7 @@
       "photos": [],
       "createdAt": "2026-03-27T10:08:22.757Z",
       "status": "active",
-      "views": 1
+      "views": 2
     },
     {
       "id": "4e12b098-3623-49c0-8638-bebf4c428fd8",
@@ -185,7 +204,7 @@
       "photos": [],
       "createdAt": "2026-03-27T10:58:16.892Z",
       "status": "active",
-      "views": 1
+      "views": 2
     },
     {
       "id": "8ca1a802-8cce-49dd-abdf-a10cbc895107",
@@ -203,7 +222,7 @@
       "photos": [],
       "createdAt": "2026-03-29T15:18:26.606Z",
       "status": "active",
-      "views": 1
+      "views": 3
     },
     {
       "id": "1c0a5001-b671-4158-be78-7e3ff150c72c",
@@ -223,7 +242,7 @@
       ],
       "createdAt": "2026-03-29T15:32:33.401Z",
       "status": "active",
-      "views": 1
+      "views": 3
     },
     {
       "id": "f02110de-d922-4f76-8603-28c922654710",
@@ -247,7 +266,29 @@
       ],
       "createdAt": "2026-03-29T15:39:25.588Z",
       "status": "active",
-      "views": 3
+      "views": 4
+    },
+    {
+      "id": "ca7f0147-d673-4a78-ae5b-914c396621b1",
+      "title": "Headphones JBL",
+      "description": "Fones de ouvido Jbl audio esterio e muito mais",
+      "price": 10000,
+      "category": "audio",
+      "condition": "novo",
+      "location": "Malanje, Malanje",
+      "sellerId": "5db37f47-2a75-41e0-9f09-046d3dead1fa",
+      "sellerName": "osmar",
+      "contactMethod": "whatsapp",
+      "contactNumber": "930555500",
+      "contactHours": "",
+      "photos": [
+        "/uploads/undefined",
+        "/uploads/undefined",
+        "/uploads/undefined"
+      ],
+      "createdAt": "2026-07-13T14:40:12.835Z",
+      "status": "active",
+      "views": 1
     }
   ],
   "productViews": [

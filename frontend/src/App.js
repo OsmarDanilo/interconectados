@@ -9,10 +9,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CreateProduct from './pages/CreateProduct';
-import SellerDashboard from './pages/SellerDashboard';
-import BuyerDashboard from './pages/BuyerDashboard';
+import Dashboard from './pages/Dashboard';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
+import Chat from './pages/Chat';
 
 function AppRoutes() {
     const { user, loading } = useAuth();
@@ -35,9 +35,9 @@ function AppRoutes() {
                     <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
                     <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
                     <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
-                    <Route path="/create-product" element={user?.type === 'vendedor' ? <CreateProduct /> : <Navigate to="/" />} />
-                    <Route path="/seller/dashboard" element={user?.type === 'vendedor' ? <SellerDashboard /> : <Navigate to="/" />} />
-                    <Route path="/buyer/dashboard" element={user?.type === 'comprador' ? <BuyerDashboard /> : <Navigate to="/" />} />
+                    <Route path="/create-product" element={user ? <CreateProduct /> : <Navigate to="/login" />} />
+                    <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+                    <Route path="/chat" element={user ? <Chat /> : <Navigate to="/login" />} />
                 </Routes>
             </main>
             <Footer />

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggle from './ThemeToggle';
-import { FiUser, FiLogOut, FiShoppingBag, FiPlusCircle, FiSearch, FiMenu, FiX, FiHome } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiShoppingBag, FiPlusCircle, FiSearch, FiMenu, FiX, FiHome, FiMessageCircle } from 'react-icons/fi';
 
 const Header = () => {
     const { user, logout } = useAuth();
@@ -54,14 +54,14 @@ const Header = () => {
     }, []);
 
     return (
-        <header className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md sticky top-0 z-50 transition-colors dark:from-gray-800 dark:to-gray-900">
+        <header className="bg-primary-600 text-white shadow-sm sticky top-0 z-50 transition-colors dark:bg-stone-850 pt-safe">
             <div className="container mx-auto px-4 py-3">
                 <div className="flex items-center justify-between flex-wrap gap-3">
                     {/* Logo e Botão Início */}
                     <div className="flex items-center space-x-3">
                         <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center shadow-md">
-                                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                     <path d="M8 4v16" />
                                     <path d="M16 4v16" />
@@ -95,9 +95,9 @@ const Header = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 placeholder="Buscar produtos..."
-                                className="w-full px-4 py-2 pl-10 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2 pl-10 rounded-lg bg-white dark:bg-stone-700 text-stone-850 dark:text-white border border-stone-100 dark:border-stone-600 focus:outline-none focus:ring-2 focus:ring-primary-500"
                             />
-                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-300" size={18} />
                         </div>
                     </form>
 
@@ -107,15 +107,23 @@ const Header = () => {
                         
                         {user ? (
                             <>
-                                {user.type === 'vendedor' && (
-                                    <Link to="/create-product" className="flex items-center space-x-1 bg-white text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-100 transition dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
-                                        <FiPlusCircle size={16} />
-                                        <span className="hidden lg:inline text-sm">Anunciar</span>
-                                    </Link>
-                                )}
-                                <Link to={user.type === 'vendedor' ? '/seller/dashboard' : '/buyer/dashboard'} className="hover:text-gray-200 transition">
+                                {/* Botão Anunciar */}
+                                <Link to="/create-product" className="flex items-center space-x-1 bg-white text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-100 transition dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                    <FiPlusCircle size={16} />
+                                    <span className="hidden lg:inline text-sm">Anunciar</span>
+                                </Link>
+                                
+                                {/* Botão Chat */}
+                                <Link to="/chat" className="hover:text-gray-200 transition relative" title="Mensagens">
+                                    <FiMessageCircle size={20} />
+                                </Link>
+                                
+                                {/* Botão Dashboard */}
+                                <Link to="/dashboard" className="hover:text-gray-200 transition">
                                     <FiShoppingBag size={20} />
                                 </Link>
+                                
+                                {/* Menu do Usuário */}
                                 <div 
                                     ref={menuContainerRef}
                                     className="relative"
@@ -155,11 +163,11 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <Link to="/login" className="flex items-center space-x-1 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                <Link to="/login" className="flex items-center space-x-1 bg-white text-primary-600 px-4 py-2 rounded-lg hover:bg-stone-50 transition dark:bg-stone-700 dark:text-white dark:hover:bg-stone-600">
                                     <FiUser size={16} />
                                     <span className="text-sm">Entrar</span>
                                 </Link>
-                                <Link to="/register" className="flex items-center space-x-1 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-blue-600 transition dark:border-gray-600 dark:hover:bg-gray-800">
+                                <Link to="/register" className="flex items-center space-x-1 border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-primary-600 transition dark:border-stone-500 dark:hover:bg-stone-700">
                                     <span className="text-sm">Cadastrar</span>
                                 </Link>
                             </>
@@ -169,7 +177,8 @@ const Header = () => {
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-white/10 transition"
+                        className="md:hidden p-3 -mr-1 rounded-lg hover:bg-white/10 active:bg-white/20 transition"
+                        aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
                     >
                         {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
                     </button>
@@ -177,20 +186,20 @@ const Header = () => {
 
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden mt-4 pt-4 border-t border-white/20 space-y-3">
+                    <div className="md:hidden mt-4 pt-4 pb-safe border-t border-white/20 space-y-3">
                         <form onSubmit={handleSearch} className="relative">
                             <input
                                 type="text"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 placeholder="Buscar produtos..."
-                                className="w-full px-4 py-2 pl-10 rounded-lg bg-white/10 text-white placeholder-white/70 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+                                className="w-full px-4 py-3 pl-10 rounded-lg bg-white/10 text-white placeholder-white/70 border border-white/20 focus:outline-none focus:ring-2 focus:ring-white"
                             />
                             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70" size={18} />
                         </form>
 
-                        <div className="flex flex-col space-y-2">
-                            <div className="flex items-center justify-between py-2">
+                        <div className="flex flex-col space-y-1">
+                            <div className="flex items-center justify-between py-2 px-2">
                                 <span className="text-sm">Tema</span>
                                 <ThemeToggle />
                             </div>
@@ -198,25 +207,31 @@ const Header = () => {
                                 <>
                                     <Link
                                         to="/profile"
-                                        className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         <FiUser size={18} />
                                         <span>Meu Perfil</span>
                                     </Link>
-                                    {user.type === 'vendedor' && (
-                                        <Link
-                                            to="/create-product"
-                                            className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
-                                            onClick={() => setMobileMenuOpen(false)}
-                                        >
-                                            <FiPlusCircle size={18} />
-                                            <span>Anunciar</span>
-                                        </Link>
-                                    )}
                                     <Link
-                                        to={user.type === 'vendedor' ? '/seller/dashboard' : '/buyer/dashboard'}
-                                        className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
+                                        to="/create-product"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        <FiPlusCircle size={18} />
+                                        <span>Anunciar</span>
+                                    </Link>
+                                    <Link
+                                        to="/chat"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        <FiMessageCircle size={18} />
+                                        <span>Mensagens</span>
+                                    </Link>
+                                    <Link
+                                        to="/dashboard"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         <FiShoppingBag size={18} />
@@ -227,7 +242,7 @@ const Header = () => {
                                             logout();
                                             setMobileMenuOpen(false);
                                         }}
-                                        className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition w-full text-left"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition w-full text-left"
                                     >
                                         <FiLogOut size={18} />
                                         <span>Sair</span>
@@ -237,7 +252,7 @@ const Header = () => {
                                 <>
                                     <Link
                                         to="/login"
-                                        className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         <FiUser size={18} />
@@ -245,7 +260,7 @@ const Header = () => {
                                     </Link>
                                     <Link
                                         to="/register"
-                                        className="flex items-center space-x-2 py-2 hover:bg-white/10 rounded-lg px-2 transition"
+                                        className="flex items-center space-x-3 py-3 hover:bg-white/10 active:bg-white/20 rounded-lg px-2 transition"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         <span>Cadastrar</span>

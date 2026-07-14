@@ -119,7 +119,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
             case 'novo': return 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400';
             case 'semi-novo': return 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400';
             case 'segunda-mao': return 'bg-stone-300 text-stone-800 dark:bg-stone-700 dark:text-stone-300';
-            default: return 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+            default: return 'bg-stone-50 text-stone-500 dark:bg-stone-700 dark:text-stone-300';
         }
     };
 
@@ -132,17 +132,17 @@ const ProductModal = ({ product, isOpen, onClose }) => {
             className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-[1000] p-2 sm:p-4"
             onClick={handleBackdropClick}
         >
-            <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-[95%] sm:max-w-[90%] md:max-w-2xl max-h-[95vh] overflow-y-auto shadow-2xl">
-                <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-3 sm:p-4 flex justify-between items-center rounded-t-2xl">
-                    <h2 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-200">Detalhes do Produto</h2>
-                    <button onClick={onClose} className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition text-gray-500 dark:text-gray-400">
+            <div className="bg-white dark:bg-stone-700 rounded-2xl w-full max-w-[95%] sm:max-w-[90%] md:max-w-2xl max-h-[95vh] overflow-y-auto shadow-xl border border-stone-100 dark:border-stone-600">
+                <div className="sticky top-0 bg-white dark:bg-stone-700 border-b border-stone-100 dark:border-stone-600 p-3 sm:p-4 flex justify-between items-center rounded-t-2xl">
+                    <h2 className="text-base sm:text-lg font-semibold text-stone-700 dark:text-stone-100">Detalhes do Produto</h2>
+                    <button onClick={onClose} className="p-2 sm:p-2 hover:bg-stone-50 dark:hover:bg-stone-600 active:bg-stone-100 dark:active:bg-stone-500 rounded-full transition text-stone-400 dark:text-stone-300">
                         <FiX size={18} />
                     </button>
                 </div>
 
-                <div className="p-4 sm:p-5">
+                <div className="p-4 sm:p-5 pb-safe">
                     {/* Imagem Principal */}
-                    <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 flex justify-center items-center mb-4 h-56 sm:h-80 md:h-96 border border-gray-200 dark:border-gray-600">
+                    <div className="bg-stone-50 dark:bg-stone-600 rounded-xl p-4 flex justify-center items-center mb-4 h-56 sm:h-80 md:h-96 border border-stone-100 dark:border-stone-500">
                         {currentProduct.photos && currentProduct.photos[0] ? (
                             <img 
                                 src={currentProduct.photos[currentPhotoIndex]} 
@@ -162,7 +162,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                     key={idx}
                                     onClick={() => setCurrentPhotoIndex(idx)}
                                     className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0 border-2 ${
-                                        currentPhotoIndex === idx ? 'border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                                        currentPhotoIndex === idx ? 'border-primary-500' : 'border-stone-150 dark:border-stone-500'
                                     }`}
                                 >
                                     <img 
@@ -175,36 +175,36 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                         </div>
                     )}
 
-                    <h3 className="text-base sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-1">{currentProduct.title}</h3>
+                    <h3 className="text-base sm:text-xl font-bold text-stone-700 dark:text-stone-100 mb-1">{currentProduct.title}</h3>
                     
                     <div className="flex items-center gap-2 mb-3">
                         <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getConditionClass(currentProduct.condition)}`}>
                             {getConditionText(currentProduct.condition)}
                         </span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">{currentProduct.category}</span>
+                        <span className="text-xs text-stone-400 dark:text-stone-300">{currentProduct.category}</span>
                     </div>
 
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        <p className="text-lg sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                             {currentProduct.price.toLocaleString()} Kz
                         </p>
-                        <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-xs sm:text-sm">
+                        <div className="flex items-center gap-1 text-stone-300 dark:text-stone-400 text-xs sm:text-sm">
                             <FiEye size={14} />
                             <span>{views} visualizações</span>
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-100 dark:border-gray-700 pt-4 mb-4">
-                        <p className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm leading-relaxed">{currentProduct.description}</p>
+                    <div className="border-t border-stone-50 dark:border-stone-600 pt-4 mb-4">
+                        <p className="text-stone-600 dark:text-stone-150 text-xs sm:text-sm leading-relaxed">{currentProduct.description}</p>
                     </div>
 
                     <div className="space-y-2 mb-5 text-xs sm:text-sm">
-                        <div className="flex items-center text-gray-500 dark:text-gray-400">
-                            <FiMapPin className="mr-2 text-gray-400 dark:text-gray-500" size={14} />
+                        <div className="flex items-center text-stone-400 dark:text-stone-300">
+                            <FiMapPin className="mr-2 text-stone-300 dark:text-stone-400" size={14} />
                             <span>{currentProduct.location}</span>
                         </div>
-                        <div className="flex items-center text-gray-500 dark:text-gray-400">
-                            <FiUser className="mr-2 text-gray-400 dark:text-gray-500" size={14} />
+                        <div className="flex items-center text-stone-400 dark:text-stone-300">
+                            <FiUser className="mr-2 text-stone-300 dark:text-stone-400" size={14} />
                             <span>{currentProduct.sellerName}</span>
                         </div>
                     </div>
@@ -228,7 +228,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                                         }
                                         setShowContact(true);
                                     }}
-                                    className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition text-sm sm:text-base"
+                                    className="w-full bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition text-sm sm:text-base"
                                 >
                                     Ver número do vendedor
                                 </button>
@@ -237,9 +237,9 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                     )}
 
                     {isOwner && (
-                        <div className="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-3 border border-blue-200 dark:border-blue-800">
-                            <p className="text-blue-600 dark:text-blue-400 font-medium text-sm">📌 Este é seu anúncio</p>
-                            <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-xl p-3 border border-primary-200 dark:border-primary-800">
+                            <p className="text-primary-600 dark:text-primary-400 font-medium text-sm">📌 Este é seu anúncio</p>
+                            <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
                                 {getContactMethodIcon(currentProduct.contactMethod)}: {currentProduct.contactNumber}
                             </p>
                         </div>

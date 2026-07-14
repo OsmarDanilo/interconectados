@@ -7,8 +7,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
-
 const cloudinary = require('cloudinary').v2;
+const chatService = require('./services/ChatService');
 
 // Configurar Cloudinary
 cloudinary.config({
@@ -20,17 +20,30 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middlewares
+// ============ CORS ATUALIZADO PARA RENDER ============
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://interconectados-frontend.onrender.com',
+    'https://interconectados-frontend-production.up.railway.app',
+    // Adicione o link do seu frontend no Render quando criar
+];
+
 app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'https://interconectados-production.up.railway.app',
-        'https://interconectados-frontend-production.up.railway.app'
-    ],
+    origin: function (origin, callback) {
+        // Permitir requisições sem origin (ex: Postman, mobile apps)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('🚫 CORS bloqueado para:', origin);
+            callback(null, true); // Em desenvolvimento, permitir todos
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-session-id']
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,7 +61,12 @@ const upload = multer({
 // Banco de dados
 const DB_PATH = path.join(__dirname, 'data', 'database.json');
 if (!fs.existsSync(path.join(__dirname, 'data'))) fs.mkdirSync(path.join(__dirname, 'data'));
-if (!fs.existsSync(DB_PATH)) fs.writeFileSync(DB_PATH, JSON.stringify({ users: [], products: [] }, null, 2));
+if (!fs.existsSync(DB_PATH)) fs.writeFileSync(DB_PATH, JSON.stringify({ 
+    users: [], 
+    products: [], 
+    conversations: [], 
+    messages: [] 
+}, null, 2));
 
 function readData() { return JSON.parse(fs.readFileSync(DB_PATH)); }
 function writeData(data) { fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2)); }
@@ -65,14 +83,18 @@ function authMiddleware(req, res, next) {
 
 // ============ ROTAS DE AUTENTICAÇÃO ============
 
-// REGISTRO
+// REGISTRO (sem tipo de usuário)
 app.post('/api/auth/register', async (req, res) => {
     try {
-        const { name, phone, password, type } = req.body;
-        if (!name || !phone || !password) return res.status(400).json({ error: 'Nome, telefone e senha obrigatórios' });
+        const { name, phone, password } = req.body;
+        if (!name || !phone || !password) {
+            return res.status(400).json({ error: 'Nome, telefone e senha obrigatórios' });
+        }
         
         const data = readData();
-        if (data.users.find(u => u.phone === phone)) return res.status(400).json({ error: 'Usuário já cadastrado' });
+        if (data.users.find(u => u.phone === phone)) {
+            return res.status(400).json({ error: 'Usuário já cadastrado' });
+        }
         
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
@@ -80,16 +102,26 @@ app.post('/api/auth/register', async (req, res) => {
             name,
             phone,
             password: hashedPassword,
-            type: type || 'comprador',
             createdAt: new Date().toISOString(),
             totalSales: 0,
             totalProducts: 0
         };
+        
         data.users.push(newUser);
         writeData(data);
         
         const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-        res.json({ success: true, user: { id: newUser.id, name, phone, type: newUser.type }, token });
+        
+        res.json({
+            success: true,
+            user: {
+                id: newUser.id,
+                name: newUser.name,
+                phone: newUser.phone,
+                type: 'usuario'
+            },
+            token
+        });
     } catch (error) {
         console.error('Erro no registro:', error);
         res.status(500).json({ error: 'Erro ao registrar' });
@@ -166,25 +198,27 @@ app.put('/api/auth/profile', authMiddleware, async (req, res) => {
 
 // ============ ROTAS DE PRODUTOS ============
 
-// CRIAR PRODUTO (COM CLOUDINARY)
+// CRIAR PRODUTO (qualquer usuário pode criar)
 app.post('/api/products', authMiddleware, upload.array('photos', 5), async (req, res) => {
     try {
         const { title, description, price, category, condition, location, contactMethod, contactNumber, contactHours } = req.body;
-        if (!title || !description || !price || !contactNumber) return res.status(400).json({ error: 'Campos obrigatórios' });
+        if (!title || !description || !price || !contactNumber) {
+            return res.status(400).json({ error: 'Campos obrigatórios' });
+        }
         
         const data = readData();
         const user = data.users.find(u => u.id === req.userId);
-        if (!user || user.type !== 'vendedor') return res.status(403).json({ error: 'Apenas vendedores' });
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
         
         // Upload para o Cloudinary
         const photos = [];
         if (req.files && req.files.length > 0) {
             for (const file of req.files) {
-                // Converter buffer para base64
                 const b64 = Buffer.from(file.buffer).toString('base64');
                 const dataURI = `data:${file.mimetype};base64,${b64}`;
                 
-                // Enviar para o Cloudinary
                 const result = await cloudinary.uploader.upload(dataURI, {
                     folder: 'interconectados',
                     transformation: [{ width: 800, height: 800, crop: 'limit' }]
@@ -209,8 +243,8 @@ app.post('/api/products', authMiddleware, upload.array('photos', 5), async (req,
             contactHours: contactHours || '',
             photos,
             createdAt: new Date().toISOString(),
-            views: 0,
-            status: 'active'
+            status: 'active',
+            views: 0
         };
         
         data.products.push(newProduct);
@@ -284,7 +318,6 @@ app.delete('/api/products/:id', authMiddleware, async (req, res) => {
             return res.status(403).json({ error: 'Não autorizado' });
         }
         
-        // Não precisa remover fotos do Cloudinary por enquanto
         data.products.splice(productIndex, 1);
         
         const user = data.users.find(u => u.id === req.userId);
@@ -321,7 +354,7 @@ app.get('/api/test', (req, res) => {
     res.json({ message: 'API funcionando!' });
 });
 
-// INCREMENTAR VISUALIZAÇÕES (rota específica)
+// INCREMENTAR VISUALIZAÇÕES
 app.post('/api/products/:id/view', async (req, res) => {
     try {
         const data = readData();
@@ -343,10 +376,71 @@ app.post('/api/products/:id/view', async (req, res) => {
     }
 });
 
-// Iniciar servidor
+// ============ ROTAS DO CHAT ============
+
+// Listar conversas do usuário
+app.get('/api/chat/conversations', authMiddleware, (req, res) => {
+    try {
+        const conversations = chatService.getConversations(req.userId);
+        res.json({ success: true, conversations });
+    } catch (error) {
+        console.error('Erro ao listar conversas:', error);
+        res.status(500).json({ error: 'Erro ao listar conversas' });
+    }
+});
+
+// Listar mensagens de uma conversa
+app.get('/api/chat/messages/:conversationId', authMiddleware, (req, res) => {
+    try {
+        const messages = chatService.getMessages(req.params.conversationId, req.userId);
+        if (messages === null) {
+            return res.status(403).json({ error: 'Não autorizado' });
+        }
+        res.json({ success: true, messages });
+    } catch (error) {
+        console.error('Erro ao listar mensagens:', error);
+        res.status(500).json({ error: 'Erro ao listar mensagens' });
+    }
+});
+
+// Enviar mensagem
+app.post('/api/chat/messages', authMiddleware, (req, res) => {
+    try {
+        const { receiverId, content } = req.body;
+        
+        if (!receiverId || !content) {
+            return res.status(400).json({ error: 'Destinatário e conteúdo são obrigatórios' });
+        }
+
+        if (receiverId === req.userId) {
+            return res.status(400).json({ error: 'Não pode enviar mensagem para si mesmo' });
+        }
+
+        const message = chatService.sendMessage(req.userId, receiverId, content);
+        
+        res.json({ success: true, message });
+    } catch (error) {
+        console.error('Erro ao enviar mensagem:', error);
+        res.status(500).json({ error: 'Erro ao enviar mensagem' });
+    }
+});
+
+// Contar mensagens não lidas
+app.get('/api/chat/unread-count', authMiddleware, (req, res) => {
+    try {
+        const count = chatService.getUnreadCount(req.userId);
+        res.json({ success: true, count });
+    } catch (error) {
+        console.error('Erro ao contar mensagens:', error);
+        res.status(500).json({ error: 'Erro ao contar mensagens' });
+    }
+});
+
+// ============ INICIAR SERVIDOR ============
 const port = process.env.PORT || 3001;
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`🚀 Servidor rodando em http://localhost:${port}`);
-    console.log(`💾 Banco de dados: ${DB_PATH}`);
+    console.log(`📱 Rede local: http://192.168.0.45:${port}`);
+    console.log(`🔗 Aguardando conexões...`);
 });

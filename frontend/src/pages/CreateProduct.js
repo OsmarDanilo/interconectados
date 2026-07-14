@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import toast from 'react-hot-toast';
@@ -30,15 +30,9 @@ const CreateProduct = () => {
     const provinces = Object.keys(angolaLocations).sort();
     const municipalities = formData.province ? angolaLocations[formData.province] || [] : [];
 
-    if (!user || user.type !== 'vendedor') {
-        return (
-            <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 text-center">
-                <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Acesso Negado</h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">Apenas vendedores podem criar anúncios.</p>
-                <Link to="/register" className="text-blue-600 dark:text-blue-400 hover:underline">Cadastre-se como vendedor</Link>
-            </div>
-        );
-    }
+if (!user) {
+    return <Navigate to="/login" />;
+}
 
     const validateAngolaPhone = (phone) => {
         const cleanPhone = phone.replace(/\D/g, '');
@@ -173,57 +167,58 @@ const CreateProduct = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">Anunciar Produto</h1>
+        <div className="max-w-2xl mx-auto px-2 sm:px-0">
+            <div className="bg-white dark:bg-stone-700 rounded-2xl shadow-sm border border-stone-100 dark:border-stone-600 p-4 sm:p-6">
+                <h1 className="text-xl sm:text-2xl font-bold text-stone-700 dark:text-stone-100 mb-6">Anunciar Produto</h1>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Título *</label>
+                        <label className="block text-stone-600 dark:text-stone-150 mb-1">Título *</label>
                         <input
                             type="text"
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
                             placeholder="Ex: iPhone 12 128GB"
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                            className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                             required
                         />
                     </div>
                     
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Descrição *</label>
+                        <label className="block text-stone-600 dark:text-stone-150 mb-1">Descrição *</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
                             rows="4"
                             placeholder="Descreva o produto..."
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                            className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                             required
                         />
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-700 dark:text-gray-300 mb-1">Preço (Kz) *</label>
+                            <label className="block text-stone-600 dark:text-stone-150 mb-1">Preço (Kz) *</label>
                             <input
                                 type="number"
+                                inputMode="decimal"
                                 name="price"
                                 value={formData.price}
                                 onChange={handleChange}
                                 placeholder="150000"
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                                 required
                             />
                         </div>
                         <div>
-                            <label className="block text-gray-700 dark:text-gray-300 mb-1">Categoria</label>
+                            <label className="block text-stone-600 dark:text-stone-150 mb-1">Categoria</label>
                             <select
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                             >
                                 <option value="telemovel">Telemóvel</option>
                                 <option value="laptop">Laptop</option>
@@ -237,47 +232,47 @@ const CreateProduct = () => {
                         </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-700 dark:text-gray-300 mb-1">Estado do Produto</label>
+                            <label className="block text-stone-600 dark:text-stone-150 mb-1">Estado do Produto</label>
                             <select
                                 name="condition"
                                 value={formData.condition}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                             >
                                 <option value="novo">Novo (Nunca usado)</option>
                                 <option value="semi-novo">Semi-novo (Pouco uso)</option>
                                 <option value="segunda-mao">Segunda Mão (Usado)</option>
                             </select>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">
                                 {getConditionDescription(formData.condition)}
                             </p>
                         </div>
                     </div>
                     
                     {/* LOCALIZAÇÃO */}
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">
-                        <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">📍 Localização</h3>
+                    <div className="border-t border-stone-100 dark:border-stone-600 pt-4 mt-2">
+                        <h3 className="font-semibold text-stone-700 dark:text-stone-100 mb-3">📍 Localização</h3>
                         
-                        <div className="flex gap-4 mb-4">
-                            <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
+                            <label className="flex items-center gap-2 text-stone-600 dark:text-stone-150 py-1">
                                 <input
                                     type="radio"
                                     value="select"
                                     checked={locationType === 'select'}
                                     onChange={() => setLocationType('select')}
-                                    className="text-blue-600"
+                                    className="text-primary-600 w-4 h-4"
                                 />
                                 <span>Selecionar Província/Município</span>
                             </label>
-                            <label className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                            <label className="flex items-center gap-2 text-stone-600 dark:text-stone-150 py-1">
                                 <input
                                     type="radio"
                                     value="manual"
                                     checked={locationType === 'manual'}
                                     onChange={() => setLocationType('manual')}
-                                    className="text-blue-600"
+                                    className="text-primary-600 w-4 h-4"
                                 />
                                 <span>Digitar manualmente</span>
                             </label>
@@ -286,11 +281,11 @@ const CreateProduct = () => {
                         {locationType === 'select' ? (
                             <div className="space-y-3">
                                 <div>
-                                    <label className="block text-gray-700 dark:text-gray-300 mb-1">Província *</label>
+                                    <label className="block text-stone-600 dark:text-stone-150 mb-1">Província *</label>
                                     <select
                                         value={formData.province}
                                         onChange={handleProvinceChange}
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                        className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                                     >
                                         <option value="">Selecione uma província</option>
                                         {provinces.map(prov => (
@@ -301,47 +296,47 @@ const CreateProduct = () => {
                                 
                                 {formData.province && municipalities.length > 0 && (
                                     <div>
-                                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Município</label>
+                                        <label className="block text-stone-600 dark:text-stone-150 mb-1">Município</label>
                                         <select
                                             name="municipality"
                                             value={formData.municipality}
                                             onChange={handleChange}
-                                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                            className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                                         >
                                             <option value="">Selecione um município (opcional)</option>
                                             {municipalities.map(mun => (
                                                 <option key={mun} value={mun}>{mun}</option>
                                             ))}
                                         </select>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Opcional - pode deixar em branco</p>
+                                        <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">Opcional - pode deixar em branco</p>
                                     </div>
                                 )}
                             </div>
                         ) : (
                             <div>
-                                <label className="block text-gray-700 dark:text-gray-300 mb-1">Localização *</label>
+                                <label className="block text-stone-600 dark:text-stone-150 mb-1">Localização *</label>
                                 <input
                                     type="text"
                                     name="customLocation"
                                     value={formData.customLocation}
                                     onChange={handleChange}
                                     placeholder="Ex: Luanda, Bairro Popular, Rua 10"
-                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                    className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                                 />
-                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Digite sua localização completa</p>
+                                <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">Digite sua localização completa</p>
                             </div>
                         )}
                     </div>
                     
                     {/* Fotos */}
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300 mb-1">Fotos (máx 5)</label>
+                        <label className="block text-stone-600 dark:text-stone-150 mb-1">Fotos (máx 5)</label>
                         <div 
-                            className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center hover:border-blue-500 transition cursor-pointer dark:hover:border-blue-400"
+                            className="border-2 border-dashed border-stone-150 dark:border-stone-500 rounded-lg p-5 text-center hover:border-primary-500 active:border-primary-500 transition cursor-pointer dark:hover:border-primary-400"
                             onClick={() => document.getElementById('photoInput').click()}
                         >
-                            <p className="text-gray-500 dark:text-gray-400">📸 Clique para adicionar fotos</p>
-                            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">A primeira foto será a principal</p>
+                            <p className="text-stone-400 dark:text-stone-300">📸 Toque para adicionar fotos</p>
+                            <p className="text-xs text-stone-300 dark:text-stone-400 mt-1">A primeira foto será a principal</p>
                         </div>
                         <input
                             type="file"
@@ -353,18 +348,19 @@ const CreateProduct = () => {
                         />
                         
                         {photoPreviews.length > 0 && (
-                            <div className="flex gap-2 mt-3 flex-wrap">
+                            <div className="flex gap-3 mt-3 flex-wrap">
                                 {photoPreviews.map((preview, idx) => (
-                                    <div key={idx} className="relative group">
+                                    <div key={idx} className="relative">
                                         <img 
                                             src={preview} 
                                             alt={`Preview ${idx + 1}`} 
-                                            className={`w-20 h-20 object-cover rounded-lg border-2 ${idx === 0 ? 'border-blue-500' : 'border-gray-200 dark:border-gray-600'}`}
+                                            className={`w-20 h-20 object-cover rounded-lg border-2 ${idx === 0 ? 'border-primary-500' : 'border-stone-100 dark:border-stone-500'}`}
                                         />
                                         <button
                                             type="button"
                                             onClick={() => removePhoto(idx)}
-                                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                                            className="absolute -top-2.5 -right-2.5 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm hover:bg-red-600 active:bg-red-700 shadow-sm"
+                                            aria-label="Remover foto"
                                         >
                                             ×
                                         </button>
@@ -372,9 +368,9 @@ const CreateProduct = () => {
                                             <button
                                                 type="button"
                                                 onClick={() => setMainPhoto(idx)}
-                                                className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs py-1 rounded-b-lg opacity-0 group-hover:opacity-100 transition"
+                                                className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-[11px] py-1.5 rounded-b-lg"
                                             >
-                                                Principal
+                                                Tornar principal
                                             </button>
                                         )}
                                     </div>
@@ -382,21 +378,21 @@ const CreateProduct = () => {
                             </div>
                         )}
                         {photoPreviews.length === 0 && (
-                            <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">Nenhuma foto adicionada</p>
+                            <p className="text-xs text-stone-300 dark:text-stone-400 mt-2">Nenhuma foto adicionada</p>
                         )}
                     </div>
                     
                     {/* Contato */}
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">
-                        <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-3">📞 Como prefere ser contactado?</h3>
-                        <div className="grid grid-cols-2 gap-4">
+                    <div className="border-t border-stone-100 dark:border-stone-600 pt-4 mt-2">
+                        <h3 className="font-semibold text-stone-600 dark:text-stone-150 mb-3">📞 Como prefere ser contactado?</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-gray-700 dark:text-gray-300 mb-1">Método</label>
+                                <label className="block text-stone-600 dark:text-stone-150 mb-1">Método</label>
                                 <select
                                     name="contactMethod"
                                     value={formData.contactMethod}
                                     onChange={handleChange}
-                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                    className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                                 >
                                     <option value="whatsapp">WhatsApp</option>
                                     <option value="call">Ligação</option>
@@ -404,33 +400,35 @@ const CreateProduct = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-gray-700 dark:text-gray-300 mb-1">Número *</label>
+                                <label className="block text-stone-600 dark:text-stone-150 mb-1">Número *</label>
                                 <input
                                     type="tel"
+                                    inputMode="numeric"
+                                    autoComplete="tel"
                                     name="contactNumber"
                                     value={formData.contactNumber}
                                     onChange={handlePhoneChange}
                                     placeholder="923456789"
-                                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white ${
-                                        contactError ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                                    className={`w-full px-3 py-3 border rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white ${
+                                        contactError ? 'border-red-500' : 'border-stone-150 dark:border-stone-500'
                                     }`}
                                     required
                                 />
                                 {contactError && (
                                     <p className="text-xs text-red-500 mt-1">{contactError}</p>
                                 )}
-                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Digite apenas os números. Ex: 923456789</p>
+                                <p className="text-xs text-stone-400 dark:text-stone-300 mt-1">Digite apenas os números. Ex: 923456789</p>
                             </div>
                         </div>
                         <div className="mt-2">
-                            <label className="block text-gray-700 dark:text-gray-300 mb-1">Horário preferido</label>
+                            <label className="block text-stone-600 dark:text-stone-150 mb-1">Horário preferido</label>
                             <input
                                 type="text"
                                 name="contactHours"
                                 value={formData.contactHours}
                                 onChange={handleChange}
                                 placeholder="Ex: 9h às 18h"
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                className="w-full px-3 py-3 border border-stone-150 dark:border-stone-500 rounded-lg focus:outline-none focus:border-primary-500 dark:bg-stone-600 dark:text-white"
                             />
                         </div>
                     </div>
@@ -438,7 +436,7 @@ const CreateProduct = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                        className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 active:bg-primary-800 transition disabled:opacity-50"
                     >
                         {loading ? 'Publicando...' : 'Publicar Anúncio'}
                     </button>

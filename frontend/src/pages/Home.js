@@ -83,15 +83,15 @@ const Home = () => {
     return (
         <div>
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center dark:from-gray-800 dark:to-gray-900">
+            <div className="bg-gradient-to-br from-primary-600 to-primary-800 text-white rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center dark:from-stone-850 dark:to-stone-900">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">InterConectados</h1>
                 <p className="text-sm sm:text-lg md:text-xl mb-4 sm:mb-6 opacity-90 px-2">Conectando pessoas através da tecnologia</p>
                 {!user && (
                     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                        <Link to="/register" className="bg-white text-blue-600 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-sm sm:text-base dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                        <Link to="/register" className="bg-white text-primary-600 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-stone-50 transition text-sm sm:text-base dark:bg-stone-700 dark:text-white dark:hover:bg-stone-600">
                             Começar a Comprar
                         </Link>
-                        <Link to="/register" className="border-2 border-white text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition text-sm sm:text-base dark:border-gray-600 dark:hover:bg-gray-800">
+                        <Link to="/register" className="border-2 border-white text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition text-sm sm:text-base dark:border-stone-500 dark:hover:bg-stone-700">
                             Anunciar Grátis
                         </Link>
                     </div>
@@ -106,12 +106,12 @@ const Home = () => {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Buscar produtos..."
-                        className="w-full px-4 sm:px-5 py-3 sm:py-4 pl-10 sm:pl-12 pr-20 sm:pr-24 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+                        className="w-full px-4 sm:px-5 py-3 sm:py-4 pl-10 sm:pl-12 pr-20 sm:pr-24 rounded-xl border border-stone-100 dark:border-stone-600 bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
                     />
-                    <FiSearch className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" size={18} />
+                    <FiSearch className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-stone-300 dark:text-stone-400" size={18} />
                     <button
                         type="submit"
-                        className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg transition font-medium text-sm"
+                        className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg transition font-medium text-sm"
                     >
                         Buscar
                     </button>
@@ -120,8 +120,8 @@ const Home = () => {
 
            {/* Categorias - Versão limpa e moderna */}
 <div className="mb-8">
-    <div className="border-b border-gray-200 dark:border-gray-700 mb-4">
-        <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 pb-2">
+    <div className="border-b border-stone-100 dark:border-stone-600 mb-4">
+        <h3 className="text-sm font-medium text-stone-400 dark:text-stone-300 pb-2">
             Explorar categorias
         </h3>
     </div>
@@ -134,8 +134,8 @@ const Home = () => {
                 className={`
                     inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all
                     ${category === cat.id 
-                        ? 'bg-blue-500 text-white shadow-sm' 
-                        : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+                        ? 'bg-primary-500 text-white shadow-sm' 
+                        : 'bg-stone-25 dark:bg-stone-700 text-stone-500 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-600 border border-stone-100 dark:border-stone-600'
                     }
                 `}
             >
@@ -148,14 +148,14 @@ const Home = () => {
 
             {/* Produtos - 1 por linha no mobile */}
             <div className="flex justify-between items-center mb-4 px-2 sm:px-0">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200">Últimos Anúncios</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-stone-700 dark:text-stone-100">Últimos Anúncios</h2>
                 {searchParams.get('search') && (
                     <button
                         onClick={() => {
                             setSearchTerm('');
                             setSearchParams({});
                         }}
-                        className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                        className="text-xs sm:text-sm text-primary-600 dark:text-primary-400 hover:underline"
                     >
                         Limpar busca
                     </button>
@@ -164,14 +164,14 @@ const Home = () => {
             
             {loading ? (
                 <div className="flex justify-center py-12">
-                    <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-blue-600 dark:border-blue-400"></div>
+                    <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary-600 dark:border-primary-400"></div>
                 </div>
             ) : products.length === 0 ? (
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-8 sm:p-12 text-center shadow mx-2 sm:mx-0">
-                    <p className="text-gray-500 dark:text-gray-400">Nenhum produto encontrado.</p>
+                <div className="bg-white dark:bg-stone-700 rounded-xl p-8 sm:p-12 text-center shadow mx-2 sm:mx-0">
+                    <p className="text-stone-400 dark:text-stone-300">Nenhum produto encontrado.</p>
                     {searchParams.get('search') && (
-                        <p className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 mt-2">
-                            Tente buscar com outras palavras ou <button onClick={() => { setSearchTerm(''); setSearchParams({}); }} className="text-blue-600 dark:text-blue-400 hover:underline">limpar a busca</button>
+                        <p className="text-xs sm:text-sm text-stone-300 dark:text-stone-400 mt-2">
+                            Tente buscar com outras palavras ou <button onClick={() => { setSearchTerm(''); setSearchParams({}); }} className="text-primary-600 dark:text-primary-400 hover:underline">limpar a busca</button>
                         </p>
                     )}
                 </div>

@@ -52,16 +52,16 @@ const ProductCard = ({ product, onClick }) => {
             case 'segunda-mao': 
                 return 'bg-stone-300 text-stone-800 dark:bg-stone-700 dark:text-stone-300';
             default: 
-                return 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+                return 'bg-stone-50 text-stone-500 dark:bg-stone-700 dark:text-stone-300';
         }
     };
 
     return (
         <div 
             onClick={onClick}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+            className="bg-white dark:bg-stone-700 rounded-2xl shadow-sm hover:shadow-md active:shadow-sm overflow-hidden transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] cursor-pointer border border-stone-100 dark:border-stone-600"
         >
-            <div className="relative h-40 sm:h-48 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 border-b-0 rounded-t-xl overflow-hidden">
+            <div className="relative h-40 sm:h-48 bg-stone-50 dark:bg-stone-600 border border-stone-100 dark:border-stone-600 border-b-0 rounded-t-xl overflow-hidden">
                 {mainPhoto ? (
                     <img 
                         src={mainPhoto} 
@@ -78,26 +78,26 @@ const ProductCard = ({ product, onClick }) => {
                 </span>
             </div>
             <div className="p-2 sm:p-4">
-                <h3 className="font-semibold text-xs sm:text-base text-gray-800 dark:text-gray-200 mb-1 line-clamp-2">
+                <h3 className="font-semibold text-xs sm:text-base text-stone-700 dark:text-stone-100 mb-1 line-clamp-2">
                     {product.title}
                 </h3>
                 <div className="flex items-center justify-between mb-1 sm:mb-2">
-                    <p className="text-sm sm:text-xl font-bold text-blue-600 dark:text-blue-400">
+                    <p className="text-sm sm:text-xl font-bold text-primary-600 dark:text-primary-400">
                         {product.price.toLocaleString()} Kz
                     </p>
-                    <div className="flex items-center gap-1 text-[8px] sm:text-xs text-gray-400 dark:text-gray-500">
+                    <div className="flex items-center gap-1 text-[8px] sm:text-xs text-stone-300 dark:text-stone-400">
                         <FiEye size={8} className="sm:w-3 sm:h-3" />
                         <span>{views}</span>
                     </div>
                 </div>
-                <div className="flex items-center justify-between text-[10px] sm:text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between text-[10px] sm:text-sm text-stone-400 dark:text-stone-300">
                     <div className="flex items-center">
                         <FiMapPin className="mr-0.5 sm:mr-1" size={10} />
                         <span className="truncate text-[9px] sm:text-sm">{product.location}</span>
                     </div>
                     <span className="truncate ml-1 text-[8px] sm:text-xs">{product.sellerName}</span>
                 </div>
-                <div className="text-[8px] sm:text-xs text-gray-400 dark:text-gray-500 mt-1">
+                <div className="text-[8px] sm:text-xs text-stone-300 dark:text-stone-400 mt-1">
                     📞 {getContactMethodIcon(product.contactMethod)}
                 </div>
             </div>

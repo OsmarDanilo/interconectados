@@ -8,13 +8,13 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="relative p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 shadow-sm"
+            className="relative p-2 rounded-full bg-stone-100 dark:bg-stone-600 hover:bg-stone-150 dark:hover:bg-stone-500 transition-all duration-300 shadow-sm"
             aria-label="Alternar tema"
         >
             {darkMode ? (
                 <FiSun className="text-yellow-400" size={18} />
             ) : (
-                <FiMoon className="text-gray-700" size={18} />
+                <FiMoon className="text-stone-600" size={18} />
             )}
         </button>
     );
