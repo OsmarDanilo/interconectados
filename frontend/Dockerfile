@@ -9,6 +9,9 @@ RUN npm install --legacy-peer-deps
 # Copiar o resto do código
 COPY . .
 
+# Dar permissão de execução para o react-scripts
+RUN chmod -R 755 node_modules/.bin
+
 # Fazer o build
 RUN npm run build
 
