@@ -1,17 +1,20 @@
-FROM node:18-alpine
+FROM node:18-alpine as build
 
 WORKDIR /app
 
+# Copiar package.json e instalar dependências
 COPY package*.json ./
-RUN npm ci --only=production=false || npm install
+RUN npm install --legacy-peer-deps
 
+# Copiar o resto do código
 COPY . .
 
-RUN chmod -R 777 node_modules
+# Fazer o build
 RUN npm run build
 
-RUN npm install -g serve
+# Servir com nginx
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
 
-EXPOSE 3000
-
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
