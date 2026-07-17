@@ -21,11 +21,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // ============ CORS ============
-const allowedOrigins = [
-    'http://localhost:3000',
-    'https://interconectados-frontend.onrender.com',
-    'https://interconectados-frontend-production.up.railway.app'
-];
+// ============ CORS ============
+app.use(cors({
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-session-id']
+}));
 
 app.use(cors({
     origin: function (origin, callback) {
